@@ -68,6 +68,7 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.internal.app.ThemeUtils;
 
@@ -106,6 +107,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private boolean mIsWaitingForEcmExit = false;
     private boolean mHasTelephony;
     private boolean mHasVibrator;
+    private static int rebootIndex = 0;
 
     /**
      * @param context everything needs a context :(
@@ -269,6 +271,28 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                     return true;
                 }
             });
+
+        // next: reboot
+        mItems.add(
+                new SinglePressAction(
+                        com.android.internal.R.drawable.ic_lock_reboot,
+                        com.android.internal.R.string.reboot) {
+
+                    @Override
+                    public boolean showDuringKeyguard() {
+                        return true;
+                    }
+
+                    @Override
+                    public boolean showBeforeProvisioning() {
+                        return true;
+                    }
+
+                    @Override
+                    public void onPress() {
+                        createRebootDialog().show();
+                    }
+                });
 
         // next: airplane mode
         mItems.add(mAirplaneModeOn);
@@ -1050,7 +1074,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         }
     }
 
-/*    private AlertDialog createRebootDialog() {
+    private AlertDialog createRebootDialog() {
         final String[] rebootOptions = mContext.getResources().getStringArray(R.array.reboot_options);
         final String[] rebootReasons = mContext.getResources().getStringArray(R.array.reboot_values);
 
@@ -1088,5 +1112,5 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         }
 
         return d;
-    } */
+    }
 }
