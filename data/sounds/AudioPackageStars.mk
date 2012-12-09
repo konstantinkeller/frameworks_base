@@ -49,7 +49,6 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/notifications/ogg/Pollux.ogg:system/media/audio/notifications/Pollux.ogg \
 	$(LOCAL_PATH)/notifications/ogg/Procyon.ogg:system/media/audio/notifications/Procyon.ogg \
 	$(LOCAL_PATH)/notifications/ogg/Proxima.ogg:system/media/audio/notifications/Proxima.ogg \
-	$(LOCAL_PATH)/notifications/ogg/Regulus.ogg:system/media/audio/notifications/Regulus.ogg \
 	$(LOCAL_PATH)/notifications/ogg/Shaula.ogg:system/media/audio/notifications/Shaula.ogg \
 	$(LOCAL_PATH)/notifications/ogg/Sirius.ogg:system/media/audio/notifications/Sirius.ogg \
 	$(LOCAL_PATH)/notifications/ogg/Sirrah.ogg:system/media/audio/notifications/Sirrah.ogg \
