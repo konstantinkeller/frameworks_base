@@ -685,7 +685,6 @@ public class PhoneStatusBar extends BaseStatusBar {
         return lp;
     }
 
-    @Override
     public void toggleNotificationShade() {
         int msg = (mExpandedVisible)
                 ? MSG_CLOSE_PANELS : MSG_OPEN_NOTIFICATION_PANEL;

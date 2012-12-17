@@ -1050,7 +1050,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         }
     }
 
-    private AlertDialog createRebootDialog() {
+/*    private AlertDialog createRebootDialog() {
         final String[] rebootOptions = mContext.getResources().getStringArray(R.array.reboot_options);
         final String[] rebootReasons = mContext.getResources().getStringArray(R.array.reboot_values);
 
@@ -1088,5 +1088,5 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         }
 
         return d;
-    }
+    } */
 }
