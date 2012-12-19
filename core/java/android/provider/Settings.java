@@ -2269,16 +2269,7 @@ public final class Settings {
          * 5 - Hide
          */
         public static final String STATUSBAR_BATTERY_ICON = "statusbar_battery_icon";
-        /**
-         * Style of Battery
-         * 0 - Icon Only
-         * 1 - Text Only
-         * 2 - Icon Text
-         * 3 - Icon Centered Text
-         * 4 - Icon Circle
-         * 5 - Hide
-         */
-        public static final String STATUSBAR_BATTERY_ICON = "statusbar_battery_icon";
+        
         /**
          * AM/PM Style for clock options
          * 0 - Normal AM/PM
