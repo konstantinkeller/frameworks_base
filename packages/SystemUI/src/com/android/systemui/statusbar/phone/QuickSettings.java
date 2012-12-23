@@ -495,7 +495,7 @@ class QuickSettings {
                     @Override
                     public boolean onLongClick(View v) {
                         Intent intent = new Intent("android.intent.action.MAIN");
-                        intent.setComponent(ComponentName.unflattenFromString("com.android.settings/.pcf.RomSettings"));
+                        intent.setComponent(ComponentName.unflattenFromString("com.android.settings/.pcf.Extras"));
                         intent.addCategory("android.intent.category.LAUNCHER");
                         startSettingsActivity(intent);
                         return true;
