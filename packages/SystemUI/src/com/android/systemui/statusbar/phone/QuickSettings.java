@@ -381,6 +381,16 @@ class QuickSettings {
                 startSettingsActivity(android.provider.Settings.ACTION_SETTINGS);
             }
         });
+        settingsTile.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent = new Intent("android.intent.action.MAIN");
+                intent.setComponent(ComponentName.unflattenFromString("com.android.settings/.pcf.RomSettings"));
+                intent.addCategory("android.intent.category.LAUNCHER");
+                startSettingsActivity(intent);
+                return true;
+            }
+        });
         mModel.addSettingsTile(settingsTile, new QuickSettingsModel.RefreshCallback() {
             @Override
             public void refreshView(QuickSettingsTileView view, State state) {
