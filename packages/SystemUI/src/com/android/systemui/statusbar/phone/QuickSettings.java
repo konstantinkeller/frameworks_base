@@ -390,7 +390,7 @@ class QuickSettings {
                 });
                 mModel.addUserTile(quick, new QuickSettingsModel.RefreshCallback() {
                     @Override
-                    public void refreshView(QuickSettingsTileView view, State, state) {
+                    public void refreshView(QuickSettingsTileView view, State state) {
                         UserState us = (UserState) state;
                         ImageView iv = (ImageView) view.findViewById(R.id.user_imageview);
                         TextView tv = (TextView) view.findViewById(R.id.user_textview);
