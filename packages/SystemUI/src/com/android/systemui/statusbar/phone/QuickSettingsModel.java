@@ -239,6 +239,10 @@ class QuickSettingsModel implements BluetoothStateChangeCallback,
     private RefreshCallback mSettingsCallback;
     private State mSettingsState = new State();
 
+    private QuickSettingsTileView mTorchTile;
+    private RefreshCallback mTorchCallback;
+    private state mTorchState = new State();
+
     public QuickSettingsModel(Context context) {
         mContext = context;
         mHandler = new Handler();
@@ -274,6 +278,8 @@ class QuickSettingsModel implements BluetoothStateChangeCallback,
                 refreshBrightnessTile();
             if (toggle.equals(QuickSettings.ROTATE_TOGGLE))
                 refreshRotationLockTile();
+            if (toggle.equals(QuickSettings.TORCH_TILE))
+                refreshTorchTile();
         }
 
     }
@@ -720,6 +726,34 @@ class QuickSettingsModel implements BluetoothStateChangeCallback,
     void refreshRotationLockTile() {
         if (mRotationLockTile != null) {
             onRotationLockChanged();
+        }
+    }
+
+    // Torch
+    void addTorchTile(QuickSettingsTileView view, RefreshCallback cb) {
+        mTorchTile = view;
+        mTorchCallback = cb;
+        onTorchChanged();
+    }
+
+    void onTorchChanged() {
+        boolean enabled = Settings.System.getBoolean(mContext.getContentResolver(), Settings.System.TORCH_STATE, false);
+        mTorchState.enabled = enabled;
+        mTorchState.iconId = enabled
+                ? R.drawable.ic_qs_torch_on
+                : R.drawable.ic_qs_torch_off;
+        mTorchState.label = enabled
+                ? mContext.getString(R.string.quick_settings_torch_on_label)
+                : mContext.getString(R.string.quick_settings_torch_off_label);
+
+        if (mTorchTile != null && mTorchCallback != null) {
+            mTorchCallback.refreshView(mTorchTile, mTorchState);
+        }
+    }
+
+    void refreshTorchTile() {
+        if (mTorchTile != null) {
+            onTorchChanged();
         }
     }
 

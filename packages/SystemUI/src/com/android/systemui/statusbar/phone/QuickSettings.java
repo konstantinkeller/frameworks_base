@@ -79,6 +79,9 @@ import android.view.WindowManager;
 import android.view.WindowManagerGlobal;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.systemui.pcf.PCFTarget;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -104,6 +107,7 @@ class QuickSettings {
     private static final int BATTERY_TILE = 9;
     private static final int AIRPLANE_TILE = 10;
     private static final int BLUETOOTH_TILE = 11;
+    private static final int TORCH_TILE = 12;
 
     public static final String USER_TOGGLE = "USER";
     public static final String BRIGHTNESS_TOGGLE = "BRIGHTNESS";
@@ -117,11 +121,14 @@ class QuickSettings {
     public static final String BATTERY_TOGGLE = "BATTERY";
     public static final String AIRPLANE_TOGGLE = "AIRPLANE_MODE";
     public static final String BLUETOOTH_TOGGLE = "BLUETOOTH";
+    public static final String TORCH_TOGGLE = "TORCH";
 
     private static final String DEFAULT_TOGGLES = "default";
 
     public String strGPSoff = "GPS Off";
     public String strGPSon = "GPS On";
+    public String strDataoff = "Mobile Data Off";
+    public String strDataon = "Mobile Data On";
 
     private Context mContext;
     private PanelBar mBar;
@@ -134,6 +141,8 @@ class QuickSettings {
     private ConnectivityManager connManager;
     private PhoneStatusBar mStatusBarService;
     private BluetoothState mBluetoothState;
+
+    private PCFTarget mPCFTarget;
 
     private BrightnessController mBrightnessController;
     private BluetoothController mBluetoothController;
@@ -171,6 +180,7 @@ class QuickSettings {
             toggleMap.put(BATTERY_TOGGLE, BATTERY_TILE);
             toggleMap.put(AIRPLANE_TOGGLE, AIRPLANE_TILE);
             toggleMap.put(BLUETOOTH_TOGGLE, BLUETOOTH_TILE);
+            toggleMap.put(TORCH_TOGGLE, TORCH_TILE);
         }
         return toggleMap;
     }
@@ -198,6 +208,8 @@ class QuickSettings {
         wifiManager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
         mBluetoothState = new QuickSettingsModel.BluetoothState();
         mHandler = new Handler();
+
+        mPCFTarget = new PCFTarget(mContext);
 
         Resources r = mContext.getResources();
         mBatteryLevels = (LevelListDrawable) r.getDrawable(R.drawable.qs_sys_battery);
@@ -531,11 +543,7 @@ class QuickSettings {
                 quick.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (wifiManager.isWifiEnabled()) {
-                            wifiManager.setWifiEnabled(false);
-                        } else {
-                            wifiManager.setWifiEnabled(true);
-                        }
+                        wifiManager.setWifiEnabled(wifiManager.isWifiEnabled() ? false : true);
                     }
                 });
                 quick.setOnLongClickListener(new View.OnLongClickListener() {
@@ -747,6 +755,33 @@ class QuickSettings {
                         if (state.label != null) {
                             tv.setText(state.label);
                         }
+                    }
+                });
+                break;
+            case TORCH_TILE:
+                quick = (QuickSettingsTileView)
+                        inflater.inflate(R.layout.quick_settings_tile, parent, false);
+                quick.setContent(R.layout.quick_settings_tile_torch, inflater);
+                quick.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mAokpTarget.launchAction(mAokpTarget.ACTION_TORCH);
+                        mHandler.postDelayed(delayedRefresh, 2000);
+                    }
+                });
+                quick.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        // maybe something here?
+                        return true;
+                    }
+                });
+                mModel.addTorchTile(quick, new QuickSettingsModel.RefreshCallback() {
+                    @Override
+                    public void refreshView(QuickSettingsTileView view, State state) {
+                        TextView tv = (TextView) view.findViewById(R.id.torch_textview);
+                        tv.setCompoundDrawablesWithIntrinsicBounds(0, state.iconId, 0, 0);
+                        tv.setText(state.label);
                     }
                 });
                 break;
