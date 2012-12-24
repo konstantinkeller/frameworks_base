@@ -241,7 +241,7 @@ class QuickSettingsModel implements BluetoothStateChangeCallback,
 
     private QuickSettingsTileView mTorchTile;
     private RefreshCallback mTorchCallback;
-    private state mTorchState = new State();
+    private State mTorchState = new State();
 
     public QuickSettingsModel(Context context) {
         mContext = context;

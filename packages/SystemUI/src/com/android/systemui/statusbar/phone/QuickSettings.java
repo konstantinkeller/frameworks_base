@@ -765,7 +765,7 @@ class QuickSettings {
                 quick.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mAokpTarget.launchAction(mAokpTarget.ACTION_TORCH);
+                        mPCFTarget.launchAction(mPCFTarget.ACTION_TORCH);
                         mHandler.postDelayed(delayedRefresh, 2000);
                     }
                 });
@@ -1117,6 +1117,12 @@ class QuickSettings {
                 }
             }
 
+        }
+    };
+
+    final Runnable delayedRefresh = new Runnable () {
+        public void run() {
+             mModel.refreshTorchTile();
         }
     };
 
