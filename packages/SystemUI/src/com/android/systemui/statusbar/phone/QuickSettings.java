@@ -446,7 +446,7 @@ class QuickSettings {
                         public void onClick(View v) {
                             connManager.setMobileDataEnabled(connManager.getMobileDataEnabled() ? false : true);
                             String strData = connManager.getMobileDataEnabled() ?
-                                    r.getString(R.string.quick_settings_data_off_label);
+                                    r.getString(R.string.quick_settings_data_off_label)
                                     : r.getString(R.string.quick_settings_data_on_label);
                             Toast.makeText(mContext, strData, Toast.LENGTH_SHORT).show();
                         }

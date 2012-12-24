@@ -77,7 +77,7 @@ public class PCFTarget {
     private Handler mHandler;
 
     public PCFTarget (Context context){
-        mContext = contextl
+        mContext = context;
         mHandler = new Handler();
     }
 
