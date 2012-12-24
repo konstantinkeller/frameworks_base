@@ -278,7 +278,7 @@ class QuickSettingsModel implements BluetoothStateChangeCallback,
                 refreshBrightnessTile();
             if (toggle.equals(QuickSettings.ROTATE_TOGGLE))
                 refreshRotationLockTile();
-            if (toggle.equals(QuickSettings.TORCH_TILE))
+            if (toggle.equals(QuickSettings.TORCH_TOGGLE))
                 refreshTorchTile();
         }
 

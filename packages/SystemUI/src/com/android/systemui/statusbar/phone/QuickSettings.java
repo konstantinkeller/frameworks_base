@@ -376,6 +376,7 @@ class QuickSettings {
     }
 
     private QuickSettingsTileView getTile(int tile, ViewGroup parent, LayoutInflater inflater) {
+        final Resources r = mContext.getResources();
         QuickSettingsTileView quick = null;
         switch (tile) {
             case USER_TILE:
