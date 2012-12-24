@@ -58,6 +58,7 @@ import android.graphics.drawable.LevelListDrawable;
 import android.hardware.display.DisplayManager;
 import android.hardware.display.WifiDisplayStatus;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -130,6 +131,7 @@ class QuickSettings {
     private DisplayManager mDisplayManager;
     private WifiDisplayStatus mWifiDisplayStatus;
     private WifiManager wifiManager;
+    private ConnectivityManager connManager;
     private PhoneStatusBar mStatusBarService;
     private BluetoothState mBluetoothState;
 
@@ -430,11 +432,22 @@ class QuickSettings {
                     quick.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            connManager.setMobileDataEnabled(connManager.getMobileDataEnabled() ? false : true);
+                            String strData = connManager.getMobileDataEnabled() ?
+                                    r.getString(R.string.quick_settings_data_off_label);
+                                    : r.getString(R.string.quick_settings_data_on_label);
+                            Toast.makeText(mContext, strData, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    quick.setOnLongClickListener(new View.OnLongClickListener() {
+                         @Override
+                        public boolean onLongClick(View v) {
                             Intent intent = new Intent();
                             intent.setComponent(new ComponentName(
-                                    "com.android.settings",
-                                    "com.android.settings.Settings$DataUsageSummaryActivity"));
+                                "com.android.settings",
+                                "com.android.settings.Settings$DataUsageSummaryActivity"));
                             startSettingsActivity(intent);
+                            return true;
                         }
                     });
                     mModel.addRSSITile(quick, new QuickSettingsModel.RefreshCallback() {
